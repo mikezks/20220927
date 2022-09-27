@@ -43,6 +43,7 @@
     "@nrwl/nx-plugin": "^14.3.6",
     "@swc/helpers": "~0.3.3",
     "@swimlane/ngx-charts": "^20.1.0",
+    "@trellisorg/make-buildable": "^0.0.12",
     "angular-oauth2-oidc": "^13.0.1",
     "nx": "^14.1.4",
     "rxjs": "~7.5.0",
