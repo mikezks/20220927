@@ -1,8 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FlightService} from '@flight-workspace/flight-lib';
+// import { FlightCardComponent } from '../flight-card/flight-card.component';
 
 @Component({
   selector: 'flight-search',
+  /* standalone: true,
+  imports: [
+    FlightCardComponent
+  ], */
   templateUrl: './flight-search.component.html',
   styleUrls: ['./flight-search.component.css']
 })
