@@ -37,5 +37,10 @@
       }
     }
   },
-  "tags": ["type:domain-logic", "domain:flights"]
+  "tags": [
+    "type:domain-logic",
+    "domain:flights",
+    "domain:flights-api-booking",
+    "domain:flights-api-checkin"
+  ]
 }
