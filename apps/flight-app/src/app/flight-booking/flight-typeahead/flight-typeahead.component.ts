@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Flight } from '@flight-workspace/flight-lib';
-import { debounceTime, distinctUntilChanged, filter, map, Observable, of, switchMap, tap, withLatestFrom } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, interval, map, Observable, of, shareReplay, startWith, switchMap, tap, timer, withLatestFrom } from 'rxjs';
 
 @Component({
   selector: 'flight-workspace-flight-typeahead',
@@ -13,6 +13,7 @@ export class FlightTypeaheadComponent {
   control = new FormControl();
   flights$: Observable<Flight[]> = this.getFlightsStream$();
   loading = false;
+  online = false;
 
   constructor(private http: HttpClient) {}
 
@@ -20,6 +21,12 @@ export class FlightTypeaheadComponent {
     const filterState$ = of({
       from: 'Frankfurt'
     });
+
+    const online$ = timer(0, 2_000).pipe(
+      map(() => Math.random() < 0.5),
+      distinctUntilChanged(),
+      shareReplay(1)
+    );
 
     /**
      * Stream 1: Input values changes
