@@ -12,7 +12,6 @@ import { PassengerSearchComponent } from './passenger-search/passenger-search.co
 import { FlightTypeaheadComponent } from './flight-typeahead/flight-typeahead.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 import * as fromFlightBooking from './+state/flight-booking.reducer';
 import { FlightBookingEffects } from './+state/flight-booking.effects';
 
@@ -24,10 +23,7 @@ import { FlightBookingEffects } from './+state/flight-booking.effects';
     SharedModule.forChild(),
     RouterModule.forChild(FLIGHT_BOOKING_ROUTES),
     StoreModule.forFeature(fromFlightBooking.flightBookingFeatureKey, fromFlightBooking.reducer),
-    StoreRouterConnectingModule.forRoot({
-      stateKey: 'router',
-      routerState: RouterState.Minimal
-    }),
+
     EffectsModule.forFeature([FlightBookingEffects]),
   ],
   declarations: [

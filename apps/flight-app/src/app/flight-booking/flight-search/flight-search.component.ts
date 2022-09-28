@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Flight, FlightService} from '@flight-workspace/flight-lib';
 import { Store } from '@ngrx/store';
-import { flightsLoaded, flightUpdate } from '../+state/flight-booking.actions';
-import { FlightBookingRootState } from '../+state/flight-booking.reducer';
-// import { FlightCardComponent } from '../flight-card/flight-card.component';
+import * as fromFlightBooking from '../+state';
 
 @Component({
   selector: 'flight-search',
@@ -29,7 +27,7 @@ export class FlightSearchComponent implements OnInit {
 
   constructor(
     private flightService: FlightService,
-    private store: Store<FlightBookingRootState>) {
+    private store: Store<fromFlightBooking.FlightBookingRootState>) {
   }
 
   ngOnInit() {
@@ -43,14 +41,14 @@ export class FlightSearchComponent implements OnInit {
       .find(this.from, this.to, this.urgent)
       .subscribe(
         flights => this.store.dispatch(
-          flightsLoaded({ flights })
+          fromFlightBooking.flightsLoaded({ flights })
         )
       );
   }
 
   delay(flight: Flight): void {
     this.store.dispatch(
-      flightUpdate({
+      fromFlightBooking.flightUpdate({
         flight: {
           ...flight,
           date: addMinutesToDate(flight.date, 15).toISOString(),
