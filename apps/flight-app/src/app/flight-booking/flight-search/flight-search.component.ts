@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {FlightService} from '@flight-workspace/flight-lib';
+import {Flight, FlightService} from '@flight-workspace/flight-lib';
 import { Store } from '@ngrx/store';
-import { flightsLoaded } from '../+state/flight-booking.actions';
+import { flightsLoaded, flightUpdate } from '../+state/flight-booking.actions';
 import { FlightBookingRootState } from '../+state/flight-booking.reducer';
 // import { FlightCardComponent } from '../flight-card/flight-card.component';
 
@@ -48,8 +48,21 @@ export class FlightSearchComponent implements OnInit {
       );
   }
 
-  delay(): void {
-    this.flightService.delay();
+  delay(flight: Flight): void {
+    this.store.dispatch(
+      flightUpdate({
+        flight: {
+          ...flight,
+          date: addMinutesToDate(flight.date, 15).toISOString(),
+          delayed: true
+        }
+      })
+    );
   }
-
 }
+
+
+export const addMinutesToDate = (date: Date | string, minutes: number): Date => {
+  const dateObj = date instanceof Date ? date : new Date(date);
+  return new Date(dateObj.getTime() + minutes * 60 * 1_000);
+};
