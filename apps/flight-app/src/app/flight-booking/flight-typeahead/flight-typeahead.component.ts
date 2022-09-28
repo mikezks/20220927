@@ -16,7 +16,7 @@ export class FlightTypeaheadComponent {
 
   constructor(private http: HttpClient) {}
 
-  getFlightsStream$(): Observable<Flight[]> {
+  private getFlightsStream$(): Observable<Flight[]> {
     const filterState$ = of({
       from: 'Frankfurt'
     });
@@ -51,7 +51,7 @@ export class FlightTypeaheadComponent {
     );
   }
 
-  load(from: string): Observable<Flight[]> {
+  private load(from: string): Observable<Flight[]> {
     const url = "http://www.angular.at/api/flight";
 
     const params = new HttpParams()
