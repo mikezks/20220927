@@ -8,7 +8,7 @@ import * as FlightBookingActions from './flight-booking.actions';
 @Injectable()
 export class FlightBookingEffects {
 
-  loadFlightBookings$ = createEffect(() =>
+  loadFlights$ = createEffect(() =>
     /**
      * Stream 1: Action Observable
      *  - Trigger
