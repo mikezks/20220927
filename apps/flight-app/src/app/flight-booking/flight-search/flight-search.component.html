@@ -11,6 +11,17 @@
       <form>
 
         <div class="form-group">
+          <label for="filterSelect">Previous Filters:</label>
+          <select [(ngModel)]="selectedFilter" name="filter"
+            class="form-control" id="filterSelect">
+            <option
+              *ngFor="let filter of selectFilters$ | async"
+              [ngValue]="filter">
+              {{filter.from}} - {{filter.to}}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
           <label>From:</label>
           <input [(ngModel)]="from" name="from" class="form-control">
         </div>
