@@ -118,7 +118,7 @@ export class FlightSearchComponent implements OnInit {
     (filter$: Observable<Filter>) =>
       filter$.pipe(
         tap(filter => this.globalStore.dispatch(
-          fromFlightBooking.flightsLoad({
+          fromFlightBooking.FlightBookingActions.flightsLoad({
             from: filter.from,
             to: filter.to,
             urgent: filter.urgent
@@ -154,7 +154,7 @@ export class FlightSearchComponent implements OnInit {
     this.searchFlights(filter);
 
     this.globalStore.dispatch(
-      fromFlightBooking.flightsLoad({
+      fromFlightBooking.FlightBookingActions.flightsLoad({
         from: this.from,
         to: this.to,
         urgent: this.urgent
@@ -164,7 +164,7 @@ export class FlightSearchComponent implements OnInit {
 
   delay(flight: Flight): void {
     this.globalStore.dispatch(
-      fromFlightBooking.flightUpdate({
+      fromFlightBooking.FlightBookingActions.flightUpdate({
         flight: {
           ...flight,
           date: addMinutesToDate(flight.date, 15).toISOString(),

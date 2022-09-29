@@ -1,8 +1,8 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import * as fromFlightBooking from './flight-booking.reducer';
+import { flightBookingFeature, State } from './flight-booking.reducer';
 
-export const selectFlightBookingState = createFeatureSelector<fromFlightBooking.State>(
-  fromFlightBooking.flightBookingFeatureKey
+export const selectFlightBookingState = createFeatureSelector<State>(
+  flightBookingFeature.name
 );
 
 export const selectFlights = createSelector(
