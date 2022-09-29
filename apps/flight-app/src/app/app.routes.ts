@@ -15,6 +15,14 @@ export const APP_ROUTES: Routes = [
     component: HomeComponent
   },
   {
+    path: 'flight-booking',
+    loadChildren: () => import('./flight-booking/flight-booking.module')
+      .then(esm => esm.FlightBookingModule),
+    data: {
+      preLoading: true
+    }
+  },
+  {
     path: 'mf-passenger',
     loadChildren: () => loadRemoteModule<PassengerMf>({
           type: 'module',
