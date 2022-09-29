@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Flight, FlightService } from '@flight-workspace/flight-lib';
 import { ComponentStore } from '@ngrx/component-store';
 import { Store } from '@ngrx/store';
-import { map, Observable, switchMap } from 'rxjs';
+import { map, Observable, switchMap, tap } from 'rxjs';
 import * as fromFlightBooking from '../+state';
 
 
@@ -88,6 +88,16 @@ export class FlightSearchComponent implements OnInit {
     state => state.flights
   );
 
+  selectViewModel$ = this.localStore.select(
+    // Selectors
+    this.selectFilters$,
+    this.flights$,
+    // Projector
+    (filters, flights) => ({
+      filters, flights
+    })
+  );
+
   /**
    * Side-Effects
    */
@@ -101,6 +111,19 @@ export class FlightSearchComponent implements OnInit {
           filter.urgent
         )),
         map(flights => this.setFlights(flights))
+      )
+  );
+
+  triggerGlobalFlightLoad = this.localStore.effect(
+    (filter$: Observable<Filter>) =>
+      filter$.pipe(
+        tap(filter => this.globalStore.dispatch(
+          fromFlightBooking.flightsLoad({
+            from: filter.from,
+            to: filter.to,
+            urgent: filter.urgent
+          })
+        ))
       )
   );
 
